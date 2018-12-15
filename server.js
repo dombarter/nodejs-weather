@@ -2,13 +2,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const app = express()
+const app = express();
 
 const apiKey = 'd77c7178802b17c10c0e43ba9359b06e';
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 function celcius(temp){
   var new_temp = (temp - 32) * (5 / 9);
@@ -17,6 +17,10 @@ function celcius(temp){
 
 app.get('/', function (req, res) {
   res.render('index', {weather: null, error: null, location: null});
+})
+
+app.get('/test', function (req, res) {
+  res.end("Hello World!");
 })
 
 app.post('/', function (req, res) {
@@ -42,6 +46,6 @@ app.post('/', function (req, res) {
   });
 })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(80, function () {
+  console.log('Example app listening on port 80!')
 })
