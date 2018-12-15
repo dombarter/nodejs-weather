@@ -16,7 +16,7 @@ function celcius(temp){
 }
 
 app.get('/', function (req, res) {
-  res.render('index', {weather: null, error: null});
+  res.render('index', {weather: null, error: null, location: null});
 })
 
 app.post('/', function (req, res) {
@@ -25,16 +25,18 @@ app.post('/', function (req, res) {
 
   request(url, function (err, response, body) {
     if(err){
-      res.render('index', {weather: null, error: 'Error, please try again'});
+      res.render('index', {weather: null, error: 'Error, please try again', location: null});
     } else {
       let weather = JSON.parse(body)
       if(weather.main == undefined){
-        res.render('index', {weather: null, error: 'Error, please try again'});
+        res.render('index', {weather: null, error: 'Error, please try again', location: null});
       } else {
         console.log(weather.coord.lon);
         console.log(weather.coord.lat);
+        let locationInfo = `https://maps.google.com/maps?q=${weather.coord.lat},${weather.coord.lon}&output=embed&z=13`;
+        console.log(locationInfo);
         let weatherText = `It's ${celcius(weather.main.temp)}°C in ${weather.name}!`;
-        res.render('index', {weather: weatherText, error: null});
+        res.render('index', {weather: weatherText, error: null , location: locationInfo});
       }
     }
   });
