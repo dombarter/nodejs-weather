@@ -2,17 +2,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const mysql = require('mysql');
 const app = express();
 
 const apiKey = 'd77c7178802b17c10c0e43ba9359b06e';
-
-/*var con = mysql.createConnection({
-  host: "localhost",
-  user: "weather",
-  password: "password",
-  database: "weather",
-});*/
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,11 +14,6 @@ function celcius(temp){
   var new_temp = (temp - 32) * (5 / 9);
   return Math.round(new_temp);
 }
-
-/*con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});*/
 
 app.get('/', function (req, res) {
   res.render('index', {weather: null, error: null, location: null});
