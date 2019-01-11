@@ -6,7 +6,9 @@ const app = express();
 
 const apiKey = 'd77c7178802b17c10c0e43ba9359b06e';
 
-app.use(express.static('public'));
+app.use(express.static('./public'));
+app.use(express.static('./views'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
